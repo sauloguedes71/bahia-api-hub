@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { DataModule } from '@/lib/modules'
@@ -34,15 +35,15 @@ export function ModuleCard({ module }: { module: DataModule }) {
       </div>
 
       <h3 className="mt-6 text-xl font-semibold tracking-tight text-slate-800">
-        <a href={`#${module.id}`} className="rounded focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200">
+        <Link to={`/${module.id}`} className="rounded focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200">
           {module.name}
-        </a>
+        </Link>
       </h3>
       <p className="mt-2 flex-1 text-pretty text-sm leading-relaxed text-slate-500">{module.description}</p>
 
-      <a href={`#${module.id}`} className={cn('mt-5 w-fit text-sm font-medium hover:underline', accent.link)}>
+      <Link to={`/${module.id}`} className={cn('mt-5 w-fit text-sm font-medium hover:underline', accent.link)}>
         Explorar dados<span className="sr-only"> de {module.name}</span>
-      </a>
+      </Link>
 
       <footer className="mt-5 flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
         <p className="min-w-0 truncate text-xs text-slate-400">

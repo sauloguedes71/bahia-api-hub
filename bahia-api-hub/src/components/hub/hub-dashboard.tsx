@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { Outlet, useLocation } from "react-router-dom";
+import { useState, useEffect } from 'react'
 import { Menu, Sparkles, X } from 'lucide-react'
 import { dataModules } from '@/lib/modules'
 import { Sidebar } from './sidebar'
@@ -16,9 +17,18 @@ function normalize(value: string) {
 }
 
 export function HubDashboard() {
+  const location = useLocation()
+  const isHome = location.pathname === '/'
+
   const [query, setQuery] = useState('')
   const [activeId, setActiveId] = useState('hub')
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  // Mantém o item do menu lateral selecionado corretamente ao atualizar a página
+  useEffect(() => {
+    const path = location.pathname.substring(1)
+    setActiveId(path === '' ? 'hub' : path)
+  }, [location.pathname])
 
   const search = normalize(query.trim())
   const visibleModules = search
@@ -34,6 +44,7 @@ export function HubDashboard() {
     <div className="min-h-dvh bg-background">
       <Sidebar activeId={activeId} onNavigate={handleNavigate} className="fixed inset-y-0 left-0 z-30 hidden lg:flex" />
 
+      {/* Menu Mobile */}
       <div className="sticky top-0 z-20 flex items-center justify-between border-b border-slate-200/70 bg-white/80 px-4 py-3 backdrop-blur lg:hidden">
         <div className="flex items-center gap-2">
           <div className="flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-sky-400 to-emerald-400 text-white">
@@ -45,20 +56,17 @@ export function HubDashboard() {
           type="button"
           onClick={() => setMobileOpen(true)}
           className="rounded-lg p-2 text-slate-500 hover:bg-slate-100"
-          aria-label="Abrir menu"
-          aria-expanded={mobileOpen}
         >
           <Menu className="size-5" aria-hidden="true" />
         </button>
       </div>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true" aria-label="Menu">
+        <div className="fixed inset-0 z-40 lg:hidden">
           <button
             type="button"
             className="absolute inset-0 bg-slate-900/20 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
-            aria-label="Fechar menu"
           />
           <div className="relative h-full w-72 animate-in slide-in-from-left duration-200">
             <Sidebar activeId={activeId} onNavigate={handleNavigate} className="bg-white" />
@@ -66,7 +74,6 @@ export function HubDashboard() {
               type="button"
               onClick={() => setMobileOpen(false)}
               className="absolute right-3 top-5 rounded-lg p-2 text-slate-400 hover:bg-slate-100"
-              aria-label="Fechar menu"
             >
               <X className="size-5" aria-hidden="true" />
             </button>
@@ -74,42 +81,43 @@ export function HubDashboard() {
         </div>
       )}
 
-      <main id="hub" className="px-5 py-8 md:px-10 md:py-12 lg:ml-72">
-        <div className="mx-auto max-w-6xl">
-          <HubHeader query={query} onQueryChange={setQuery} />
+      {/* Área Central Dinâmica */}
+      <main id="hub" className="px-5 py-8 md:px-10 md:py-12 lg:ml-72 flex flex-col h-screen">
+        {isHome ? (
+          <div className="mx-auto w-full max-w-6xl">
+            <HubHeader query={query} onQueryChange={setQuery} />
 
-          <section aria-labelledby="modules-heading" className="mt-12">
-            <div className="flex items-baseline justify-between">
-              <h2 id="modules-heading" className="text-lg font-semibold text-slate-800">
-                Módulos de dados
-              </h2>
-              <p className="text-sm text-slate-400" aria-live="polite">
-                {visibleModules.length} de {dataModules.length} módulos
-              </p>
-            </div>
-
-            {visibleModules.length > 0 ? (
-              <ul className="mt-5 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                {visibleModules.map((module) => (
-                  <li key={module.id}>
-                    <ModuleCard module={module} />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div className="mt-5 rounded-xl bg-white p-10 text-center shadow-soft">
-                <p className="font-medium text-slate-700">Nenhum módulo encontrado</p>
-                <p className="mt-1 text-sm text-slate-400">Tente buscar por outro termo, como “clima” ou “escolas”.</p>
+            <section className="mt-12">
+              <div className="flex items-baseline justify-between">
+                <h2 className="text-lg font-semibold text-slate-800">Módulos de dados</h2>
+                <p className="text-sm text-slate-400">
+                  {visibleModules.length} de {dataModules.length} módulos
+                </p>
               </div>
-            )}
-          </section>
 
-          <AboutSection />
+              {visibleModules.length > 0 ? (
+                <ul className="mt-5 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                  {visibleModules.map((module) => (
+                    <li key={module.id}>
+                      <ModuleCard module={module} />
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="mt-5 rounded-xl bg-white p-10 text-center shadow-soft">
+                  <p className="font-medium text-slate-700">Nenhum módulo encontrado</p>
+                </div>
+              )}
+            </section>
 
-          <footer className="mt-16 border-t border-slate-200/70 pt-6 text-center text-xs text-slate-400">
-            Bahia API Hub · Dados abertos e acessíveis para todos os cidadãos
-          </footer>
-        </div>
+            <AboutSection />
+            <footer className="mt-16 border-t border-slate-200/70 pt-6 text-center text-xs text-slate-400">
+              Bahia API Hub · Dados abertos e acessíveis para todos os cidadãos
+            </footer>
+          </div>
+        ) : (
+          <Outlet />
+        )}
       </main>
     </div>
   )

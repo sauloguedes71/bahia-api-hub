@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Code2, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { mainRepoUrl, navItems } from '@/lib/modules'
@@ -33,10 +34,14 @@ export function Sidebar({ activeId, onNavigate, className }: SidebarProps) {
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = item.id === activeId
+            
+            // Define o caminho: se for o painel inicial vai para "/", senão vai para "/nome-do-modulo"
+            const routePath = item.id === 'dashboard' || item.id === 'hub' ? '/' : `/${item.id}`
+
             return (
               <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
+                <Link
+                  to={routePath}
                   onClick={() => onNavigate(item.id)}
                   aria-current={isActive ? 'page' : undefined}
                   className={cn(
@@ -54,7 +59,7 @@ export function Sidebar({ activeId, onNavigate, className }: SidebarProps) {
                     aria-hidden="true"
                   />
                   {item.label}
-                </a>
+                </Link>
               </li>
             )
           })}

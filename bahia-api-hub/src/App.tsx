@@ -8,15 +8,14 @@ interface ModuleFrameProps {
 
 const ModuleFrame = ({ title, url }: ModuleFrameProps) => (
   <div className="w-full h-[calc(100vh-100px)]">
-    <iframe src={url} title={title} className="w-full h-full border-0 rounded-lg shadow-sm" />
-  </div>
-);
-
-// Componente provisório para o ecrã inicial (pode depois colocar aqui os cartões que retirou do main)
-const WelcomeScreen = () => (
-  <div>
-    <h1 className="text-2xl font-bold mb-4">Bem-vindo ao Bahia API Hub</h1>
-    <p>Selecione um módulo no menu lateral para visualizar os dados.</p>
+    {url ? (
+      <iframe src={url} title={title} className="w-full h-full border-0 rounded-xl shadow-sm bg-white" />
+    ) : (
+      <div className="flex h-full w-full flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-200 bg-slate-50">
+        <p className="text-lg font-medium text-slate-500">Módulo em desenvolvimento</p>
+        <p className="mt-1 text-sm text-slate-400">A aguardar o link de produção da equipa responsável.</p>
+      </div>
+    )}
   </div>
 );
 
@@ -24,21 +23,15 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rota Pai: O Dashboard com o Menu Lateral */}
         <Route path="/" element={<HubDashboard />}>
+          {/* Módulo já entregue */}
+          <Route path="eleicoes" element={<ModuleFrame title="Módulo Eleições" url="https://elei-es-bahia.vercel.app/" />} />
           
-          {/* Rotas Filhas: Aparecem dentro do <Outlet /> */}
-          <Route index element={<WelcomeScreen />} /> {/* O que aparece por defeito */}
-          
-          <Route 
-            path="eleicoes" 
-            element={
-              <ModuleFrame 
-                title="Módulo Eleições" 
-                url="https://elei-es-bahia.vercel.app/" 
-              />
-            } 
-          />
+          {/* Módulos a aguardar link */}
+          <Route path="clima" element={<ModuleFrame title="Módulo Clima" url="" />} />
+          <Route path="economia" element={<ModuleFrame title="Módulo Economia" url="" />} />
+          <Route path="educacao" element={<ModuleFrame title="Módulo Educação" url="" />} />
+          <Route path="populacao" element={<ModuleFrame title="Módulo População" url="" />} />
         </Route>
       </Routes>
     </BrowserRouter>

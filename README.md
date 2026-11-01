@@ -16,7 +16,7 @@ Portal unificado de dados públicos para diagnósticos territoriais e acompanham
 
 | Área | Ferramenta |
 | --- | --- |
-| Core | React 19 (com React Compiler), TypeScript, Vite 8 |
+| Core | React 19, TypeScript, Vite 8 |
 | Roteamento | React Router 7 |
 | Estilo | Tailwind CSS 3.4, Lucide Icons |
 | Qualidade | oxlint, TypeScript em modo estrito (sem `any`) |

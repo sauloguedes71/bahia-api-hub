@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { Suspense, useCallback, useRef, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { Menu, Sparkles, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -13,6 +13,7 @@ import { ModuleCard } from './module-card'
 import { AboutSection } from './about-section'
 import { useRouteEffects } from '@/hooks/use-route-effects'
 import { BahiaStats } from './bahia-stats'
+import { PageSkeleton } from '@/components/ui/page-skeleton'
 
 export function HubDashboard() {
   const { pathname } = useLocation()
@@ -113,7 +114,9 @@ useRouteEffects(mainRef)
               </footer>
             </div>
           ) : (
-            <Outlet />
+            <Suspense fallback={<PageSkeleton />}>
+  <Outlet />
+</Suspense>
           )}
         </ErrorBoundary>
       </main>

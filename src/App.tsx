@@ -1,9 +1,11 @@
+import { lazy } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { HubDashboard } from '@/components/hub/hub-dashboard'
-import { ModuleFrame } from '@/components/hub/module-frame'
-import { AboutPage } from '@/pages/about-page'
 import { moduleRoutes } from '@/lib/module-routes'
-import { NotFoundPage } from '@/pages/not-found-page'
+
+const ModuleFrame = lazy(() => import('@/components/hub/module-frame').then((m) => ({ default: m.ModuleFrame })))
+const AboutPage = lazy(() => import('@/pages/about-page').then((m) => ({ default: m.AboutPage })))
+const NotFoundPage = lazy(() => import('@/pages/not-found-page').then((m) => ({ default: m.NotFoundPage })))
 
 export default function App() {
   return (

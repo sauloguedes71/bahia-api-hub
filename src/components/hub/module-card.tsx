@@ -2,7 +2,6 @@ import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { Skeleton } from '@/components/ui/skeleton'
 import type { DataModule } from '@/lib/modules'
 import { GithubIcon } from './github-icon'
 
@@ -63,19 +62,3 @@ export const ModuleCard = memo(function ModuleCard({ module }: ModuleCardProps) 
     </article>
   )
 })
-
-export function ModuleCardSkeleton() {
-  return (
-    <div role="status" aria-label="Carregando módulo" className="flex h-full flex-col rounded-2xl bg-white p-6 shadow-soft ring-1 ring-slate-900/[0.06]">
-      <Skeleton className="size-14 rounded-2xl" />
-      <Skeleton className="mt-5 h-5 w-1/2" />
-      <Skeleton className="mt-3 h-3.5 w-full" />
-      <Skeleton className="mt-2 h-3.5 w-4/5" />
-      <Skeleton className="mt-6 h-4 w-28" />
-      <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
-        <Skeleton className="h-3.5 w-24" />
-        <Skeleton className="h-7 w-20" />
-      </div>
-    </div>
-  )
-}

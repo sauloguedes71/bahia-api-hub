@@ -34,7 +34,7 @@ export const navItems: { id: string; label: string; icon: LucideIcon }[] = [
   { id: 'sobre', label: 'Sobre o Projeto', icon: Info },
 ]
 
-export const mainRepoUrl = 'https://github.com/bahia-api-hub/bahia-api-hub'
+export const mainRepoUrl = 'https://github.com/sauloguedes71/bahia-api-hub'
 
 export const dataModules: DataModule[] = [
   {

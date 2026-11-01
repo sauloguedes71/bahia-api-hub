@@ -1,6 +1,6 @@
 import { Suspense, useCallback, useRef, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { Menu, Sparkles, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { EmptyState } from '@/components/ui/empty-state'
 import { ErrorBoundary } from '@/components/ui/error-boundary'
@@ -14,6 +14,7 @@ import { AboutSection } from './about-section'
 import { useRouteEffects } from '@/hooks/use-route-effects'
 import { BahiaStats } from './bahia-stats'
 import { PageSkeleton } from '@/components/ui/page-skeleton'
+import { BrandMark } from '@/components/ui/brand-mark'
 
 export function HubDashboard() {
   const { pathname } = useLocation()
@@ -43,9 +44,7 @@ useRouteEffects(mainRef)
       {/* Barra superior mobile */}
       <header className="sticky top-0 z-20 flex items-center justify-between border-b border-slate-200/70 bg-white/80 px-4 py-3 backdrop-blur lg:hidden">
         <div className="flex items-center gap-2">
-          <div className="flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-sky-400 to-emerald-400 text-white">
-            <Sparkles className="size-4" aria-hidden="true" />
-          </div>
+         <BrandMark className="size-8" />
           <span className="font-semibold text-slate-800">Bahia Hub</span>
         </div>
         <Button variant="ghost" size="icon" aria-label="Abrir menu" onClick={() => setMobileOpen(true)}>

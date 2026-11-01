@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import { Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { BrandMark } from '@/components/ui/brand-mark'
 import { mainRepoUrl, navItems } from '@/lib/modules'
 import { GithubIcon } from './github-icon'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
@@ -22,9 +22,7 @@ export function Sidebar({ onNavigate, className }: SidebarProps) {
       )}
     >
       <div className="flex items-center gap-3 px-2">
-        <div className="flex size-11 items-center justify-center rounded-xl bg-gradient-to-br from-sky-400 to-emerald-400 text-white shadow-soft ring-1 ring-inset ring-white/40">
-          <Sparkles className="size-5" aria-hidden="true" />
-        </div>
+        <BrandMark className="size-11 drop-shadow-sm" />
         <div className="leading-tight">
           <p className="text-base font-semibold tracking-tight text-slate-900">Bahia Hub</p>
           <p className="text-xs text-slate-500">Portal de Dados Públicos</p>

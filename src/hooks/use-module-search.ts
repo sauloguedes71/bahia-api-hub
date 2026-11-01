@@ -1,8 +1,6 @@
 import { useMemo, useState } from 'react'
+import { normalize } from '@/lib/search'
 import { dataModules, type DataModule } from '@/lib/modules'
-
-const normalize = (v: string): string =>
-  v.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
 const searchable = dataModules.map((m) => ({
   module: m,

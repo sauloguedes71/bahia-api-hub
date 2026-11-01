@@ -20,11 +20,11 @@ Portal unificado de dados públicos para diagnósticos territoriais e acompanham
 | Core | React 19, TypeScript, Vite 8 |
 | Roteamento | React Router 7 |
 | Estilo | Tailwind CSS 3.4, Lucide Icons |
-| Qualidade | oxlint, TypeScript em modo estrito (sem `any`) |
+| Qualidade | oxlint, Vitest + Testing Library, TypeScript em modo estrito (sem `any`) |
 
 ## Como executar localmente
 
-**Pré-requisito:** [Node.js](https://nodejs.org/) 20.19 ou superior (recomendado: a versão LTS mais recente).
+**Pré-requisito:** [Node.js](https://nodejs.org/) 22.22 ou superior (recomendado: a versão LTS mais recente).
 
 ```bash
 git clone https://github.com/sauloguedes71/bahia-api-hub.git
@@ -41,6 +41,8 @@ Abra `http://localhost:5173`.
 | `npm run build` | Checagem de tipos (`tsc -b`) e build de produção |
 | `npm run preview` | Serve o build de produção localmente |
 | `npm run lint` | Análise estática com oxlint |
+| `npm test` | Roda os testes automatizados (Vitest) |
+| `npm run test:watch` | Testes em modo observação, reexecutando ao salvar |
 
 ## Estrutura de pastas
 
@@ -105,9 +107,9 @@ O projeto é publicado na Vercel. O arquivo `vercel.json` redireciona todas as r
 ## Roadmap
 
 - [x] Carregamento sob demanda das páginas (`React.lazy` + `Suspense`)
-- [ ] Busca global com atalho `Ctrl+K`
+- [x] Busca global com atalho `Ctrl+K`
 - [x] Meta tags Open Graph para compartilhamento de links
-- [ ] Testes automatizados (Vitest + Testing Library)
+- [x] Testes automatizados (Vitest + Testing Library)
 - [ ] Favoritos (fixar módulos no topo da home)
 
 ## Equipe

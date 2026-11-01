@@ -4,16 +4,18 @@ import { BrandMark } from '@/components/ui/brand-mark'
 import { mainRepoUrl, navItems } from '@/lib/modules'
 import { GithubIcon } from './github-icon'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
+import { SearchTrigger } from './command-palette'
 
 interface SidebarProps {
   onNavigate?: () => void
+   onSearch?: () => void
   className?: string
 }
 
 const team = ['Saulo', 'Solano', 'Pedro'] as const
 const toPath = (id: string): string => (id === 'hub' ? '/' : `/${id}`)
 
-export function Sidebar({ onNavigate, className }: SidebarProps) {
+export function Sidebar({ onNavigate, onSearch, className }: SidebarProps) {
   return (
     <aside
       className={cn(
@@ -29,7 +31,9 @@ export function Sidebar({ onNavigate, className }: SidebarProps) {
         </div>
       </div>
 
-      <nav aria-label="Navegação principal" className="mt-9 flex-1 overflow-y-auto">
+      {onSearch && <SearchTrigger onClick={onSearch} className="mt-6" />}
+
+      <nav aria-label="Navegação principal" className="mt-6 flex-1 overflow-y-auto">
         <p className="px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500">Módulos</p>
         <ul className="mt-3 flex flex-col gap-1">
           {navItems.map(({ id, label, icon: Icon }) => (

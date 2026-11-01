@@ -1,31 +1,42 @@
 import { Suspense, useCallback, useRef, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { Menu, X } from 'lucide-react'
+import { Menu, Search, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { BrandMark } from '@/components/ui/brand-mark'
 import { EmptyState } from '@/components/ui/empty-state'
 import { ErrorBoundary } from '@/components/ui/error-boundary'
+import { PageSkeleton } from '@/components/ui/page-skeleton'
 import { MobileDrawer } from '@/components/layout/mobile-drawer'
+import { useCommandShortcut } from '@/hooks/use-command-shortcut'
 import { useModuleSearch } from '@/hooks/use-module-search'
+import { useRouteEffects } from '@/hooks/use-route-effects'
 import { dataModules } from '@/lib/modules'
 import { Sidebar } from './sidebar'
 import { HubHeader } from './hub-header'
 import { ModuleCard } from './module-card'
 import { AboutSection } from './about-section'
-import { useRouteEffects } from '@/hooks/use-route-effects'
 import { BahiaStats } from './bahia-stats'
-import { PageSkeleton } from '@/components/ui/page-skeleton'
-import { BrandMark } from '@/components/ui/brand-mark'
 import { MunicipioDoDia } from './municipio-do-dia'
+import { CommandPalette } from './command-palette'
 
 export function HubDashboard() {
   const { pathname } = useLocation()
   const isHome = pathname === '/'
   const mainRef = useRef<HTMLElement>(null)
-useRouteEffects(mainRef)
+  useRouteEffects(mainRef)
 
   const { query, setQuery, results } = useModuleSearch()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const closeMobile = useCallback(() => setMobileOpen(false), [])
+  const openSearch = useCallback(() => setSearchOpen(true), [])
+  const closeSearch = useCallback(() => setSearchOpen(false), [])
+  const openSearchFromDrawer = useCallback(() => {
+    setMobileOpen(false)
+    setSearchOpen(true)
+  }, [])
+
+  useCommandShortcut(openSearch)
 
   return (
     <div className="min-h-dvh bg-background">
@@ -39,23 +50,29 @@ useRouteEffects(mainRef)
       {/* Sidebar desktop */}
       <Sidebar
         onNavigate={closeMobile}
+        onSearch={openSearch}
         className="fixed inset-y-0 left-0 z-30 hidden lg:flex"
       />
 
       {/* Barra superior mobile */}
       <header className="sticky top-0 z-20 flex items-center justify-between border-b border-slate-200/70 bg-white/80 px-4 py-3 backdrop-blur lg:hidden">
         <div className="flex items-center gap-2">
-         <BrandMark className="size-8" />
+          <BrandMark className="size-8" />
           <span className="font-semibold text-slate-800">Bahia Hub</span>
         </div>
-        <Button variant="ghost" size="icon" aria-label="Abrir menu" onClick={() => setMobileOpen(true)}>
-          <Menu aria-hidden="true" />
-        </Button>
+        <div className="flex items-center gap-1">
+          <Button variant="ghost" size="icon" aria-label="Buscar páginas e módulos" onClick={openSearch}>
+            <Search aria-hidden="true" />
+          </Button>
+          <Button variant="ghost" size="icon" aria-label="Abrir menu" onClick={() => setMobileOpen(true)}>
+            <Menu aria-hidden="true" />
+          </Button>
+        </div>
       </header>
 
       {/* Drawer mobile */}
       <MobileDrawer open={mobileOpen} onClose={closeMobile}>
-        <Sidebar onNavigate={closeMobile} className="h-full" />
+        <Sidebar onNavigate={closeMobile} onSearch={openSearchFromDrawer} className="h-full" />
         <Button
           variant="ghost"
           size="icon"
@@ -67,8 +84,10 @@ useRouteEffects(mainRef)
         </Button>
       </MobileDrawer>
 
+      <CommandPalette open={searchOpen} onClose={closeSearch} />
+
       {/* Conteúdo principal */}
-      <main ref={mainRef}  id="main-content" tabIndex={-1} className="px-5 py-8 outline-none md:px-10 md:py-12 lg:ml-72">
+      <main ref={mainRef} id="main-content" tabIndex={-1} className="px-5 py-8 outline-none md:px-10 md:py-12 lg:ml-72">
         <ErrorBoundary resetKey={pathname}>
           {isHome ? (
             <div className="mx-auto w-full max-w-6xl">
@@ -116,8 +135,8 @@ useRouteEffects(mainRef)
             </div>
           ) : (
             <Suspense fallback={<PageSkeleton />}>
-  <Outlet />
-</Suspense>
+              <Outlet />
+            </Suspense>
           )}
         </ErrorBoundary>
       </main>

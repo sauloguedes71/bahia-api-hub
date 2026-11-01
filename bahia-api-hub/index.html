@@ -1,10 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bahia-api-hub</title>
+    <meta name="color-scheme" content="light dark" />
+<script>
+  try {
+    var t = localStorage.getItem('bahia-hub-theme')
+    if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    }
+  } catch (e) {}
+</script>
+    <title>bahia-hub</title>
   </head>
   <body>
     <div id="root"></div>

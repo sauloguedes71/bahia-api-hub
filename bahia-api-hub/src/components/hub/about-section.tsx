@@ -2,7 +2,7 @@ import { HeartHandshake, ShieldCheck, Sparkles } from 'lucide-react'
 import { mainRepoUrl } from '@/lib/modules'
 import { GithubIcon } from './github-icon'
 
-const values = [
+export const values = [
   {
     icon: Sparkles,
     title: 'Simples para todos',
@@ -33,7 +33,7 @@ export function AboutSection() {
             Sobre o Projeto
           </h2>
           <p className="mt-2 text-pretty text-sm leading-relaxed text-slate-500">
-            O Bahia API Hub reúne dados públicos sobre clima, economia, educação, eleições e população do estado
+            O Bahia Hub reúne dados públicos sobre clima, economia, educação, eleições e população do estado
             em um só lugar, para que qualquer cidadão possa consultar e entender as informações da nossa região.
           </p>
         </div>

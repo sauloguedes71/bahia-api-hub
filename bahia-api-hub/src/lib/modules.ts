@@ -13,7 +13,6 @@ export type DataModule = {
   id: string
   name: string
   description: string
-  developers: string
   repoUrl: string
   icon: LucideIcon
   accent: {
@@ -44,7 +43,6 @@ export const dataModules: DataModule[] = [
     name: 'Clima',
     description:
       'Consulte dados meteorológicos, temperaturas, chuvas e previsões para os municípios baianos.',
-    developers: 'Saulo',
     icon: CloudSun,
     accent: {
       iconBg: 'bg-amber-50',
@@ -60,7 +58,6 @@ export const dataModules: DataModule[] = [
     name: 'Economia',
     description:
       'Acompanhe indicadores econômicos, PIB, emprego e renda da nossa região de forma simples.',
-    developers: 'Solano',
     icon: TrendingUp,
     accent: {
       iconBg: 'bg-sky-50',
@@ -76,7 +73,6 @@ export const dataModules: DataModule[] = [
     name: 'Educação',
     description:
       'Explore números sobre escolas, matrículas e desempenho educacional em toda a Bahia.',
-    developers: 'Pedro',
     icon: GraduationCap,
     accent: {
       iconBg: 'bg-indigo-50',
@@ -92,7 +88,6 @@ export const dataModules: DataModule[] = [
     name: 'Eleições',
     description:
       'Veja resultados eleitorais, perfil do eleitorado e a participação cidadã por município.',
-    developers: 'Saulo e Solano',
     icon: Landmark,
     accent: {
       iconBg: 'bg-violet-50',
@@ -108,7 +103,6 @@ export const dataModules: DataModule[] = [
     name: 'População',
     description:
       'Descubra dados demográficos, crescimento populacional e características dos habitantes.',
-    developers: 'Pedro e Solano',
     icon: Users,
     accent: {
       iconBg: 'bg-emerald-50',

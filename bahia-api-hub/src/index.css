@@ -86,8 +86,8 @@
 
 .dark {
   color-scheme: dark;
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
+  --background: #020617;
+  --foreground: #e2e8f0;
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
@@ -126,4 +126,9 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.dark :focus-visible {
+  outline: 2px solid #7dd3fc;
+  outline-offset: 2px;
 }

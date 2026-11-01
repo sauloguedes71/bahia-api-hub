@@ -1,65 +1,81 @@
-import { Link } from "react-router-dom";
+import { memo } from 'react'
+import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Skeleton } from '@/components/ui/skeleton'
 import type { DataModule } from '@/lib/modules'
 import { GithubIcon } from './github-icon'
 
-export function ModuleCard({ module }: { module: DataModule }) {
-  const Icon = module.icon
-  const { accent } = module
+interface ModuleCardProps {
+  module: DataModule
+}
+
+export const ModuleCard = memo(function ModuleCard({ module }: ModuleCardProps) {
+  const { icon: Icon, accent, id, name, description, repoUrl } = module
 
   return (
     <article
-      id={module.id}
       className={cn(
-        'group relative flex h-full scroll-mt-8 flex-col overflow-hidden rounded-xl bg-white p-6 shadow-soft ring-1 ring-slate-900/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-soft-lg',
+        'group relative flex h-full flex-col overflow-hidden rounded-2xl bg-white p-6 shadow-soft ring-1 ring-slate-900/[0.06]',
+        'transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-soft-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0',
+        'focus-within:ring-2 focus-within:ring-sky-300',
         accent.ring,
       )}
     >
       <span
-        className={cn(
-          'absolute inset-x-0 top-0 h-1 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100',
-          accent.bar,
-        )}
         aria-hidden="true"
+        className={cn('absolute inset-x-0 top-0 h-1 opacity-60 transition-opacity duration-300 group-hover:opacity-100', accent.bar)}
       />
 
-      <div className="flex items-start justify-between">
-        <div className={cn('flex size-14 items-center justify-center rounded-full', accent.iconBg)}>
-          <Icon className={cn('size-7', accent.iconText)} aria-hidden="true" />
-        </div>
-        <ArrowRight
-          className="size-5 -translate-x-1 text-slate-300 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
-          aria-hidden="true"
-        />
+      <div className={cn('flex size-14 items-center justify-center rounded-2xl ring-1 ring-inset ring-black/5 transition-transform duration-300 group-hover:scale-105', accent.iconBg)}>
+        <Icon className={cn('size-7', accent.iconText)} aria-hidden="true" />
       </div>
 
-      <h3 className="mt-6 text-xl font-semibold tracking-tight text-slate-800">
-        <Link to={`/${module.id}`} className="rounded focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200">
-          {module.name}
+      <h3 className="mt-5 text-lg font-semibold tracking-tight text-slate-900">
+        {/* Stretched link: o ::after cobre o card inteiro */}
+        <Link
+          to={`/${id}`}
+          className="rounded-sm outline-none after:absolute after:inset-0 after:content-[''] focus-visible:underline"
+        >
+          {name}
+          <span className="sr-only">: explorar dados</span>
         </Link>
       </h3>
-      <p className="mt-2 flex-1 text-pretty text-sm leading-relaxed text-slate-500">{module.description}</p>
+      <p className="mt-2 flex-1 text-pretty text-sm leading-relaxed text-slate-600">{description}</p>
 
-      <Link to={`/${module.id}`} className={cn('mt-5 w-fit text-sm font-medium hover:underline', accent.link)}>
-        Explorar dados<span className="sr-only"> de {module.name}</span>
-      </Link>
+      <span className={cn('mt-5 inline-flex w-fit items-center gap-1.5 text-sm font-medium', accent.link)} aria-hidden="true">
+        Explorar dados
+        <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none" />
+      </span>
 
-      <footer className="mt-5 flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
-        <p className="min-w-0 truncate text-xs text-slate-400">
-          Desenvolvido por: <span className="font-medium text-slate-500">{module.developers}</span>
-        </p>
-        <a
-          href={module.repoUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-600 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-100"
-        >
-          <GithubIcon className="size-3.5" />
-          Ver código
-          <span className="sr-only"> do módulo {module.name} no GitHub (abre em nova aba)</span>
-        </a>
-      </footer>
+      <footer className="relative z-10 mt-5 flex items-center justify-end border-t border-slate-100 pt-4">
+  <a
+    href={repoUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sky-200"
+  >
+    <GithubIcon className="size-3.5" />
+    Ver código
+    <span className="sr-only"> do módulo {name} no GitHub (abre em nova aba)</span>
+  </a>
+</footer>
     </article>
+  )
+})
+
+export function ModuleCardSkeleton() {
+  return (
+    <div role="status" aria-label="Carregando módulo" className="flex h-full flex-col rounded-2xl bg-white p-6 shadow-soft ring-1 ring-slate-900/[0.06]">
+      <Skeleton className="size-14 rounded-2xl" />
+      <Skeleton className="mt-5 h-5 w-1/2" />
+      <Skeleton className="mt-3 h-3.5 w-full" />
+      <Skeleton className="mt-2 h-3.5 w-4/5" />
+      <Skeleton className="mt-6 h-4 w-28" />
+      <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
+        <Skeleton className="h-3.5 w-24" />
+        <Skeleton className="h-7 w-20" />
+      </div>
+    </div>
   )
 }

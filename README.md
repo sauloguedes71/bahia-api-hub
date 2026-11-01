@@ -1,6 +1,7 @@
 # Bahia Hub
 
 Portal unificado de dados públicos para diagnósticos territoriais e acompanhamento de métricas regionais da Bahia. O Hub funciona como um agregador: reúne módulos de diferentes frentes (Eleições, Clima, Economia, Educação, População) em uma única interface moderna, rápida e acessível.
+🔗 **Acesse:** <https://bahia-hub.vercel.app/>
 
 ## Funcionalidades
 
@@ -97,11 +98,15 @@ Para criar um novo serviço: declare o tipo em `types.ts`, escreva o parser, exp
 
 - Os módulos são sites externos carregados em `iframe`. Por isso o **tema escuro do Hub não se aplica ao conteúdo dos módulos**, e o Hub não consegue ler o estado de saúde deles sem que cada equipe libere CORS.
 
+## Deploy
+
+O projeto é publicado na Vercel. O arquivo `vercel.json` redireciona todas as rotas para o `index.html`, o que é necessário para que `/sobre` e os módulos funcionem ao abrir ou atualizar a página direto pelo endereço.
+
 ## Roadmap
 
-- [ ] Carregamento sob demanda das páginas (`React.lazy` + `Suspense`)
+- [x] Carregamento sob demanda das páginas (`React.lazy` + `Suspense`)
 - [ ] Busca global com atalho `Ctrl+K`
-- [ ] Meta tags Open Graph para compartilhamento de links
+- [x] Meta tags Open Graph para compartilhamento de links
 - [ ] Testes automatizados (Vitest + Testing Library)
 - [ ] Favoritos (fixar módulos no topo da home)
 

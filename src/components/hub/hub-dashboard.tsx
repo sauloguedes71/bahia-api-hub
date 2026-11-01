@@ -15,6 +15,7 @@ import { useRouteEffects } from '@/hooks/use-route-effects'
 import { BahiaStats } from './bahia-stats'
 import { PageSkeleton } from '@/components/ui/page-skeleton'
 import { BrandMark } from '@/components/ui/brand-mark'
+import { MunicipioDoDia } from './municipio-do-dia'
 
 export function HubDashboard() {
   const { pathname } = useLocation()
@@ -73,6 +74,7 @@ useRouteEffects(mainRef)
             <div className="mx-auto w-full max-w-6xl">
               <HubHeader query={query} onQueryChange={setQuery} />
               <BahiaStats />
+              <MunicipioDoDia />
 
               <section aria-labelledby="modules-title" className="mt-12">
                 <div className="flex items-baseline justify-between">

@@ -59,19 +59,17 @@ export function BahiaStats() {
           (state.data.municipios === 0 ? (
             <EmptyState title="Sem dados disponíveis" description="O IBGE não retornou informações para a Bahia." />
           ) : (
-            <dl className="grid gap-4 sm:grid-cols-3">
-              {items.map(({ key, label, icon: Icon }) => (
-                <div key={key} className="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-slate-900/[0.06]">
-                  <span className="flex size-10 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
-                    <Icon className="size-5" aria-hidden="true" />
-                  </span>
-                  <dd className="mt-4 text-3xl font-semibold tracking-tight text-slate-900">
-                    {number.format(state.data[key])}
-                  </dd>
-                  <dt className="text-sm text-slate-600">{label}</dt>
-                </div>
-              ))}
-            </dl>
+           <ul className="grid gap-4 sm:grid-cols-3">
+  {items.map(({ key, label, icon: Icon }) => (
+    <li key={key} className="rounded-2xl bg-white p-5 shadow-soft ring-1 ring-slate-900/[0.06]">
+      <span aria-hidden="true" className="flex size-10 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
+        <Icon className="size-5" />
+      </span>
+      <p className="mt-4 text-3xl font-semibold tracking-tight text-slate-900">{number.format(state.data[key])}</p>
+      <p className="text-sm text-slate-600">{label}</p>
+    </li>
+  ))}
+</ul>
           ))}
       </div>
     </section>

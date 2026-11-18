@@ -16,7 +16,6 @@ const originOf = (url: string): string | null => {
   }
 }
 
-// Apps em React registram o "ouvinte" depois do evento load, então reenviamos o tema logo em seguida.
 const RESEND_DELAYS_MS = [400, 1500] as const
 
 export function ModuleFrame({ title, url }: ModuleFrameProps) {
@@ -30,19 +29,16 @@ export function ModuleFrame({ title, url }: ModuleFrameProps) {
   const sendTheme = useCallback(
     (value: Theme) => {
       if (!origin) return
-      // O destino é restrito à origem do módulo: nenhum outro site recebe a mensagem.
       frameRef.current?.contentWindow?.postMessage({ type: 'bahia-hub:theme', theme: value }, origin)
     },
     [origin],
   )
 
-  // Sempre que o usuário troca o tema, avisa o módulo.
   useEffect(() => {
     themeRef.current = theme
     if (loaded) sendTheme(theme)
   }, [theme, loaded, sendTheme])
 
-  // Limpa os reenvios pendentes ao sair da página.
   useEffect(() => {
     const pending = timers.current
     return () => pending.forEach((id) => window.clearTimeout(id))

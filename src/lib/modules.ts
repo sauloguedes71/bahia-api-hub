@@ -49,7 +49,7 @@ export const dataModules: DataModule[] = [
       iconText: 'text-amber-500',
       ring: 'group-hover:ring-amber-100',
       bar: 'bg-amber-400',
-      link: 'text-amber-600',
+      link: 'text-amber-700',
     },
   },
   {
@@ -64,7 +64,7 @@ export const dataModules: DataModule[] = [
       iconText: 'text-sky-500',
       ring: 'group-hover:ring-sky-100',
       bar: 'bg-sky-400',
-      link: 'text-sky-600',
+      link: 'text-sky-700',
     },
   },
   {
@@ -109,7 +109,7 @@ export const dataModules: DataModule[] = [
       iconText: 'text-emerald-500',
       ring: 'group-hover:ring-emerald-100',
       bar: 'bg-emerald-400',
-      link: 'text-emerald-600',
+      link: 'text-emerald-700',
     },
   },
 ]

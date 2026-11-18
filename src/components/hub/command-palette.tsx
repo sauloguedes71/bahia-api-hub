@@ -50,7 +50,7 @@ export function SearchTrigger({ onClick, className }: SearchTriggerProps) {
     >
       <Search className="size-4" aria-hidden="true" />
       <span className="flex-1 text-left">Buscar…</span>
-      <kbd className="rounded-md bg-slate-100 px-1.5 py-0.5 font-sans text-[11px] font-medium text-slate-500">{shortcut}</kbd>
+      <kbd className="rounded-md bg-slate-100 px-1.5 py-0.5 font-sans text-[11px] font-medium text-slate-600">{shortcut}</kbd>
     </button>
   )
 }
@@ -150,7 +150,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
           spellCheck={false}
           className="h-14 w-full bg-transparent text-base text-slate-900 outline-none placeholder:text-slate-500"
         />
-        <kbd className="hidden shrink-0 rounded-md bg-slate-100 px-1.5 py-0.5 font-sans text-[11px] font-medium text-slate-500 sm:block">Esc</kbd>
+        <kbd className="hidden shrink-0 rounded-md bg-slate-100 px-1.5 py-0.5 font-sans text-[11px] font-medium text-slate-600 sm:block">Esc</kbd>
       </div>
 
       <p role="status" className="sr-only">
